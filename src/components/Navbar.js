@@ -18,6 +18,7 @@ import {
 const navItems = [
   { label: 'Beranda', href: '/' },
   { label: 'Profil', href: '/profil' },
+  { label: 'Struktur', href: '/struktur' },
   { label: 'Pengumuman', href: '/pengumuman' },
   { label: 'Wisata', href: '/wisata' },
   { label: 'Produk', href: '/produk' },
