@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
-import { supabase } from '@/lib/supabase';
 import {
   FileText,
   Send,
@@ -64,22 +63,16 @@ export default function PelaporanPage() {
     }
 
     try {
-      const { error } = await supabase.from('laporan').insert([
-        {
-          nama_pelapor: form.nama_pelapor,
-          no_telepon: form.no_telepon || null,
-          email: form.email || null,
-          alamat: form.alamat || null,
-          kategori: form.kategori,
-          judul: form.judul,
-          deskripsi: form.deskripsi,
-          lokasi_kejadian: form.lokasi_kejadian || null,
-          status: 'Diterima',
-          created_at: new Date().toISOString(),
-        },
-      ]);
+      const res = await fetch('/api/laporan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
 
-      if (error) throw error;
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Gagal mengirim laporan');
+      }
 
       setStatus('success');
       setForm(initialForm);

@@ -2,6 +2,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata = {
   title: {
@@ -44,11 +45,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-sage-50 text-sage-900 antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <BackToTop />
+        <AuthProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <BackToTop />
+        </AuthProvider>
       </body>
     </html>
   );
 }
+

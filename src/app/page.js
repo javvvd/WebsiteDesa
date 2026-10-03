@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
@@ -22,6 +22,9 @@ import {
   Heart,
   Landmark,
   ArrowRight,
+  Megaphone,
+  Pin,
+  Calendar,
 } from 'lucide-react';
 
 /* ─── Animated counter ─── */
@@ -90,6 +93,14 @@ function HeroParticles() {
 
 export default function HomePage() {
   const scrollRef = useScrollAnimation();
+  const [pengumuman, setPengumuman] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/pengumuman')
+      .then((res) => res.json())
+      .then((data) => setPengumuman(Array.isArray(data) ? data.slice(0, 3) : []))
+      .catch(() => setPengumuman([]));
+  }, []);
 
   const features = [
     {
@@ -396,6 +407,65 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── PENGUMUMAN TERBARU ─── */}
+      {pengumuman.length > 0 && (
+        <section className="py-16 md:py-20 bg-sage-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12 fade-up">
+              <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
+                Informasi
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-sage-900 mt-2 mb-3">
+                Pengumuman Terbaru
+              </h2>
+              <div className="section-divider mb-4" />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5 mb-8">
+              {pengumuman.map((item, i) => (
+                <article
+                  key={item.id}
+                  className={`bg-white rounded-xl p-5 border shadow-sm fade-up stagger-${i + 1} ${
+                    item.is_pinned ? 'border-sage-300' : 'border-sage-100/50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    {item.is_pinned && <Pin className="w-3 h-3 text-sage-500" />}
+                    <span className="text-xs font-medium text-sage-400 bg-sage-50 px-2 py-0.5 rounded-full">
+                      {item.kategori}
+                    </span>
+                  </div>
+                  <h3 className="font-[family-name:var(--font-heading)] text-base font-bold text-sage-900 mb-2">
+                    {item.judul}
+                  </h3>
+                  <p className="text-sage-600 text-sm leading-relaxed line-clamp-3">
+                    {item.isi}
+                  </p>
+                  <div className="flex items-center gap-1 mt-3 text-sage-400 text-xs">
+                    <Calendar className="w-3 h-3" />
+                    {new Date(item.created_at).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="text-center fade-up">
+              <Link
+                href="/pengumuman"
+                className="inline-flex items-center gap-2 text-sage-500 font-semibold text-sm hover:text-sage-600 transition-colors"
+              >
+                Lihat semua pengumuman
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── CTA PELAPORAN ─── */}
       <section className="py-16 md:py-20 bg-sage-900">
