@@ -43,7 +43,7 @@ export default function ProfilPage() {
       {/* Sejarah & Gambaran */}
       <section className="py-16 md:py-20 bg-sage-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center mb-16">
             <div className="fade-left">
               <div className="rounded-2xl overflow-hidden shadow-xl shadow-sage-400/15">
                 <Image
@@ -58,7 +58,7 @@ export default function ProfilPage() {
 
             <div className="fade-right">
               <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
-                Sejarah & Gambaran
+                Gambaran Umum
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold text-sage-900 mt-2 mb-4">
                 Desa di Antara Dua Gunung
@@ -84,8 +84,86 @@ export default function ProfilPage() {
               </p>
             </div>
           </div>
+
+          {/* Sejarah Kelurahan */}
+          <div className="fade-up">
+            <div className="text-center mb-10">
+              <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
+                Asal Usul
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-sage-900 mt-2 mb-3">
+                Sejarah Kelurahan
+              </h2>
+              <div className="section-divider mb-4" />
+              <p className="text-sage-600 text-sm max-w-2xl mx-auto">
+                Perjalanan panjang Kelurahan Kakaskasen Dua dari masa ke masa, mencerminkan semangat dan identitas masyarakat Minahasa yang kaya budaya.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              {/* Narasi Sejarah */}
+              <div className="bg-white rounded-2xl p-6 md:p-8 border border-sage-100/50 shadow-sm mb-8">
+                <p className="text-sage-700 leading-relaxed text-sm mb-4">
+                  Kelurahan Kakaskasen Dua merupakan bagian dari kawasan Kakaskasen yang secara historis didiami oleh masyarakat Minahasa sejak zaman pra-kolonial. Nama <strong>"Kakaskasen"</strong> berasal dari bahasa Tombulu (salah satu sub-etnis Minahasa) yang berarti kawasan yang subur dan makmur.
+                </p>
+                <p className="text-sage-700 leading-relaxed text-sm mb-4">
+                  Pada masa pemerintahan kolonial Belanda, wilayah ini berkembang menjadi pusat pertanian dan perkebunan bunga, seiring dibangunnya jalur transportasi yang menghubungkan Tomohon dengan Manado. Potensi tanah yang subur di lereng gunung berapi menjadikan daerah ini sangat produktif.
+                </p>
+                <p className="text-sage-700 leading-relaxed text-sm">
+                  Setelah kemerdekaan Indonesia, wilayah Kakaskasen dimekarkan menjadi tiga kelurahan yakni Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga, sebagai upaya untuk meningkatkan efektivitas pelayanan dan pemerintahan kepada masyarakat setempat.
+                </p>
+              </div>
+
+              {/* Timeline */}
+              <div className="space-y-0">
+                {[
+                  {
+                    tahun: 'Pra-1945',
+                    judul: 'Era Pra-Kemerdekaan',
+                    desc: 'Kawasan Kakaskasen telah didiami masyarakat Minahasa. Berkembang sebagai sentra pertanian dan perkebunan bunga di bawah pengaruh budaya Tombulu.',
+                  },
+                  {
+                    tahun: '1945',
+                    judul: 'Kemerdekaan Indonesia',
+                    desc: 'Kawasan Kakaskasen menjadi bagian dari Republik Indonesia. Masyarakat aktif berpartisipasi dalam perjuangan dan pembangunan nasional.',
+                  },
+                  {
+                    tahun: '1990-an',
+                    judul: 'Pemekaran Wilayah',
+                    desc: 'Wilayah Kakaskasen dimekarkan menjadi tiga kelurahan: Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga, dalam rangka peningkatan pelayanan publik.',
+                  },
+                  {
+                    tahun: '2022',
+                    judul: 'Desa Wisata Unggulan',
+                    desc: 'Kelurahan Kakaskasen Dua meraih pengakuan nasional sebagai salah satu desa wisata terbaik, masuk nominasi 75 besar Anugerah Desa Wisata Indonesia (ADWI) 2023.',
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-5 group">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-full bg-sage-500 flex items-center justify-center shrink-0 text-white text-xs font-bold z-10">
+                        {i + 1}
+                      </div>
+                      {i < 3 && <div className="w-0.5 flex-1 bg-sage-200 my-1" />}
+                    </div>
+                    <div className={`pb-8 ${i === 3 ? 'pb-0' : ''}`}>
+                      <span className="text-sage-400 text-xs font-bold uppercase tracking-widest">
+                        {item.tahun}
+                      </span>
+                      <h4 className="font-[family-name:var(--font-heading)] font-bold text-sage-900 mt-1 mb-1">
+                        {item.judul}
+                      </h4>
+                      <p className="text-sage-600 text-sm leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
 
       {/* Data Kelurahan */}
       <section className="py-16 md:py-20 bg-white">

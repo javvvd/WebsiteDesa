@@ -27,7 +27,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { judul, isi, kategori, is_pinned } = await request.json();
+    const { judul, isi, is_pinned, gambar_url, file_url, file_nama } = await request.json();
 
     if (!judul || !isi) {
       return NextResponse.json(
@@ -40,8 +40,8 @@ export async function POST(request) {
     const sql = getDb();
 
     const result = await sql`
-      INSERT INTO pengumuman (judul, isi, kategori, is_pinned, created_by)
-      VALUES (${judul}, ${isi}, ${kategori || 'Umum'}, ${is_pinned || false}, ${session.username})
+      INSERT INTO pengumuman (judul, isi, is_pinned, gambar_url, file_url, file_nama, created_by)
+      VALUES (${judul}, ${isi}, ${is_pinned || false}, ${gambar_url || null}, ${file_url || null}, ${file_nama || null}, ${session.username})
       RETURNING *
     `;
 

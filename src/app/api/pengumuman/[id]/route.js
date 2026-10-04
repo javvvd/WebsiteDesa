@@ -2,6 +2,24 @@ import { NextResponse } from 'next/server';
 import { getDb, initDb } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 
+// GET — Public: fetch single pengumuman
+export async function GET(request, { params }) {
+  try {
+    const { id } = await params;
+    await initDb();
+    const sql = getDb();
+    const rows = await sql`SELECT * FROM pengumuman WHERE id = ${id}`;
+    
+    if (rows.length === 0) {
+      return NextResponse.json({ error: 'Tidak ditemukan' }, { status: 404 });
+    }
+    return NextResponse.json(rows[0]);
+  } catch (error) {
+    console.error('Fetch pengumuman detail error:', error);
+    return NextResponse.json({ error: 'Gagal' }, { status: 500 });
+  }
+}
+
 // PUT — Admin: update pengumuman
 export async function PUT(request, { params }) {
   try {
@@ -11,15 +29,19 @@ export async function PUT(request, { params }) {
     }
 
     const { id } = await params;
-    const { judul, isi, kategori, is_pinned } = await request.json();
+    const { judul, isi, is_pinned, gambar_url, file_url, file_nama } = await request.json();
 
     await initDb();
     const sql = getDb();
 
     const result = await sql`
       UPDATE pengumuman
-      SET judul = ${judul}, isi = ${isi}, kategori = ${kategori || 'Umum'},
-          is_pinned = ${is_pinned || false}, updated_at = NOW()
+      SET judul = ${judul}, isi = ${isi},
+          is_pinned = ${is_pinned || false},
+          gambar_url = ${gambar_url || null},
+          file_url = ${file_url || null},
+          file_nama = ${file_nama || null},
+          updated_at = NOW()
       WHERE id = ${id}
       RETURNING *
     `;

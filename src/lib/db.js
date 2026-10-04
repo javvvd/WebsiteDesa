@@ -36,13 +36,20 @@ export async function initDb() {
       id SERIAL PRIMARY KEY,
       judul VARCHAR(200) NOT NULL,
       isi TEXT NOT NULL,
-      kategori VARCHAR(50) DEFAULT 'Umum',
       is_pinned BOOLEAN DEFAULT FALSE,
+      gambar_url TEXT,
+      file_url TEXT,
+      file_nama TEXT,
       created_by VARCHAR(50),
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     )
   `;
+
+  // Migrasi untuk database yang sudah ada (tambah kolom baru jika belum ada)
+  await sql`ALTER TABLE pengumuman ADD COLUMN IF NOT EXISTS gambar_url TEXT`;
+  await sql`ALTER TABLE pengumuman ADD COLUMN IF NOT EXISTS file_url TEXT`;
+  await sql`ALTER TABLE pengumuman ADD COLUMN IF NOT EXISTS file_nama TEXT`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS laporan (

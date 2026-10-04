@@ -21,9 +21,8 @@ import {
   Calendar,
   Clock,
   Link as LinkIcon,
+  Paperclip,
 } from 'lucide-react';
-
-const kategoriOptions = ['Umum', 'Penting', 'Kegiatan', 'Pembangunan', 'Kesehatan', 'Pendidikan'];
 
 const statusColors = {
   Diterima: 'bg-blue-100 text-blue-700',
@@ -55,8 +54,10 @@ export default function AdminPage() {
   const [formP, setFormP] = useState({
     judul: '',
     isi: '',
-    kategori: 'Umum',
     is_pinned: false,
+    gambar_url: '',
+    file_url: '',
+    file_nama: '',
   });
   const [savingP, setSavingP] = useState(false);
 
@@ -129,7 +130,6 @@ export default function AdminPage() {
     }
     setLoadingL(false);
   }, []);
-
   useEffect(() => {
     if (user) {
       fetchPengumuman();
@@ -138,9 +138,47 @@ export default function AdminPage() {
     }
   }, [user, fetchPengumuman, fetchGaleri, fetchLaporan]);
 
+  const handleFileUpload = async (e, setForm, field, setFileNameField = null) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Batas 4MB (Vercel API limit standard)
+    if (file.size > 4 * 1024 * 1024) {
+      showToast('error', 'Ukuran file terlalu besar. Maksimal 4MB.');
+      return;
+    }
+
+    try {
+      showToast('info', 'Sedang mengunggah file...');
+      
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error('Upload gagal');
+      
+      const blob = await res.json();
+
+      setForm(prev => {
+        const next = { ...prev, [field]: blob.url };
+        if (setFileNameField) next[setFileNameField] = file.name;
+        return next;
+      });
+
+      showToast('success', 'File berhasil diunggah!');
+    } catch (err) {
+      console.error(err);
+      showToast('error', 'Gagal mengunggah file. Pastikan Vercel Blob sudah dikonfigurasi.');
+    }
+  };
+
   // Pengumuman CRUD
   const resetForm = () => {
-    setFormP({ judul: '', isi: '', kategori: 'Umum', is_pinned: false });
+    setFormP({ judul: '', isi: '', is_pinned: false, gambar_url: '', file_url: '', file_nama: '' });
     setEditingId(null);
     setShowForm(false);
   };
@@ -149,8 +187,10 @@ export default function AdminPage() {
     setFormP({
       judul: item.judul,
       isi: item.isi,
-      kategori: item.kategori,
       is_pinned: item.is_pinned,
+      gambar_url: item.gambar_url || '',
+      file_url: item.file_url || '',
+      file_nama: item.file_nama || '',
     });
     setEditingId(item.id);
     setShowForm(true);
@@ -395,40 +435,20 @@ export default function AdminPage() {
                   </button>
                 </div>
                 <form onSubmit={handleSaveP} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                        Judul *
-                      </label>
-                      <input
-                        type="text"
-                        value={formP.judul}
-                        onChange={(e) =>
-                          setFormP({ ...formP, judul: e.target.value })
-                        }
-                        className="form-input"
-                        placeholder="Judul pengumuman"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                        Kategori
-                      </label>
-                      <select
-                        value={formP.kategori}
-                        onChange={(e) =>
-                          setFormP({ ...formP, kategori: e.target.value })
-                        }
-                        className="form-select"
-                      >
-                        {kategoriOptions.map((k) => (
-                          <option key={k} value={k}>
-                            {k}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                  <div>
+                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                      Judul *
+                    </label>
+                    <input
+                      type="text"
+                      value={formP.judul}
+                      onChange={(e) =>
+                        setFormP({ ...formP, judul: e.target.value })
+                      }
+                      className="form-input"
+                      placeholder="Judul pengumuman"
+                      required
+                    />
                   </div>
                   <div>
                     <label className="block text-sage-700 text-sm font-medium mb-1.5">
@@ -445,6 +465,78 @@ export default function AdminPage() {
                       required
                     />
                   </div>
+
+                  {/* Upload Gambar */}
+                  <div>
+                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                      <span className="flex items-center gap-1.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-sage-400" />
+                        Upload Gambar (opsional, maks 4MB)
+                      </span>
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, setFormP, 'gambar_url')}
+                      className="block w-full text-sm text-sage-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-xl file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-sage-100 file:text-sage-700
+                        hover:file:bg-sage-200 cursor-pointer border border-sage-200 rounded-xl"
+                    />
+                    {formP.gambar_url && (
+                      <div className="mt-2 w-40 h-24 rounded-lg overflow-hidden border border-sage-200 bg-sage-50 relative group">
+                        <img src={formP.gambar_url} alt="preview" className="w-full h-full object-cover"
+                          onError={(e) => { e.target.style.display='none'; }} />
+                        <button
+                          type="button"
+                          onClick={() => setFormP({ ...formP, gambar_url: '' })}
+                          className="absolute inset-0 bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                        >
+                          Hapus
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Upload File Lampiran */}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                        <span className="flex items-center gap-1.5">
+                          <Paperclip className="w-3.5 h-3.5 text-sage-400" />
+                          Upload Dokumen Lampiran (opsional, maks 4MB)
+                        </span>
+                      </label>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
+                        onChange={(e) => handleFileUpload(e, setFormP, 'file_url', 'file_nama')}
+                        className="block w-full text-sm text-sage-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-xl file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-sage-100 file:text-sage-700
+                          hover:file:bg-sage-200 cursor-pointer border border-sage-200 rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                        Nama File (Otomatis dari upload)
+                      </label>
+                      <input
+                        type="text"
+                        value={formP.file_nama}
+                        onChange={(e) =>
+                          setFormP({ ...formP, file_nama: e.target.value })
+                        }
+                        className="form-input"
+                        placeholder="Bisa diubah manual..."
+                      />
+                    </div>
+                  </div>
+
                   <div className="flex items-center gap-6">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -513,9 +605,8 @@ export default function AdminPage() {
                         {item.is_pinned && (
                           <Pin className="w-3 h-3 text-sage-500" />
                         )}
-                        <span className="text-[10px] uppercase tracking-wider font-bold text-sage-500 bg-sage-50 px-2 py-0.5 rounded-full border border-sage-100">
-                          {item.kategori}
-                        </span>
+                        {item.gambar_url && <ImageIcon className="w-3 h-3 text-sage-400" />}
+                        {item.file_url && <Paperclip className="w-3 h-3 text-sage-400" />}
                       </div>
                       <h4 className="font-semibold text-sage-900 text-sm">
                         {item.judul}
@@ -587,31 +678,35 @@ export default function AdminPage() {
                 <form onSubmit={handleSaveG} className="space-y-4">
                   <div>
                     <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                      URL Gambar * (Link langsung dari web, google drive, dsb)
+                      Upload Gambar Galeri * (Maks 4MB)
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <LinkIcon className="h-4 w-4 text-sage-400" />
-                      </div>
-                      <input
-                        type="url"
-                        value={formG.gambar_url}
-                        onChange={(e) =>
-                          setFormG({ ...formG, gambar_url: e.target.value })
-                        }
-                        className="form-input pl-9"
-                        placeholder="https://..."
-                        required
-                      />
-                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e, setFormG, 'gambar_url')}
+                      className="block w-full text-sm text-sage-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-xl file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-sage-100 file:text-sage-700
+                        hover:file:bg-sage-200 cursor-pointer border border-sage-200 rounded-xl"
+                      required={!formG.gambar_url}
+                    />
                     {formG.gambar_url && (
-                      <div className="mt-2 w-32 h-20 rounded-lg overflow-hidden border border-sage-200 bg-sage-50">
+                      <div className="mt-2 w-32 h-20 rounded-lg overflow-hidden border border-sage-200 bg-sage-50 relative group">
                         <img 
                           src={formG.gambar_url} 
                           alt="Preview" 
                           className="w-full h-full object-cover"
                           onError={(e) => { e.target.style.display = 'none'; }}
                         />
+                        <button
+                          type="button"
+                          onClick={() => setFormG({ ...formG, gambar_url: '' })}
+                          className="absolute inset-0 bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                        >
+                          Hapus
+                        </button>
                       </div>
                     )}
                   </div>

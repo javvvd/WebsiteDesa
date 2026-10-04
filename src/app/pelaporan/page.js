@@ -1,87 +1,30 @@
 'use client';
 
-import { useState } from 'react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
 import {
-  FileText,
-  Send,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
-  User,
+  MessageCircle,
   Phone,
-  Mail,
   MapPin,
-  Tag,
-  MessageSquare,
+  AlertCircle,
+  CheckCircle,
+  ArrowRight,
+  Info,
+  ExternalLink,
 } from 'lucide-react';
 
-const kategoriOptions = [
-  'Infrastruktur & Jalan',
-  'Kebersihan & Lingkungan',
-  'Keamanan & Ketertiban',
-  'Pelayanan Publik',
-  'Kesehatan',
-  'Pendidikan',
-  'Ekonomi & UMKM',
-  'Bencana Alam',
-  'Lainnya',
-];
-
-const initialForm = {
-  nama_pelapor: '',
-  no_telepon: '',
-  email: '',
-  alamat: '',
-  kategori: '',
-  judul: '',
-  deskripsi: '',
-  lokasi_kejadian: '',
-};
-
+const WHATSAPP_NUMBER = '6281234567890';
 export default function PelaporanPage() {
   const scrollRef = useScrollAnimation();
-  const [form, setForm] = useState(initialForm);
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
-  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleLaporUmum = () => {
+    const pesan = `Halo, saya ingin menyampaikan laporan/aspirasi kepada Kelurahan Kakaskasen Dua.
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
+*Nama:* 
+*Alamat:* 
+*Isi Laporan:*`;
 
-    // Basic validation
-    if (!form.nama_pelapor || !form.kategori || !form.judul || !form.deskripsi) {
-      setStatus('error');
-      setErrorMsg('Mohon lengkapi semua field yang wajib diisi (*).');
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/laporan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Gagal mengirim laporan');
-      }
-
-      setStatus('success');
-      setForm(initialForm);
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(
-        err.message || 'Gagal mengirim laporan. Silakan coba lagi nanti.'
-      );
-    }
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -96,267 +39,90 @@ export default function PelaporanPage() {
             Pelaporan Warga
           </h1>
           <p className="text-sage-300/70 text-base max-w-xl mx-auto">
-            Sampaikan laporan, keluhan, atau aspirasi Anda kepada Kelurahan
-            Kakaskasen Dua. Setiap laporan akan ditindaklanjuti.
+            Sampaikan laporan, keluhan, atau aspirasi Anda kepada Kelurahan Kakaskasen Dua melalui WhatsApp. Setiap laporan akan ditindaklanjuti secepatnya.
           </p>
         </div>
       </section>
 
-      {/* Form Section */}
+      {/* Cara & Pilih Kategori */}
       <section className="py-16 md:py-20 bg-sage-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Success Message */}
-          {status === 'success' && (
-            <div className="mb-8 bg-green-50 border border-green-200 rounded-xl p-5 flex items-start gap-3 toast">
-              <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-green-800 text-sm">
-                  Laporan Berhasil Dikirim!
-                </p>
-                <p className="text-green-700 text-sm mt-1">
-                  Terima kasih atas laporan Anda. Tim kelurahan akan segera
-                  menindaklanjuti.
-                </p>
-                <button
-                  onClick={() => setStatus('idle')}
-                  className="mt-3 text-green-600 text-sm font-medium hover:underline"
-                >
-                  Buat laporan baru
-                </button>
-              </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Info Banner */}
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3 mb-10 animate-in">
+            <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-green-600">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.522 5.826L.054 23.272a.75.75 0 0 0 .92.92l5.49-1.47A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.51-5.17-1.402l-.37-.222-3.808 1.02 1.037-3.79-.24-.378A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+              </svg>
             </div>
-          )}
-
-          {/* Error Message */}
-          {status === 'error' && (
-            <div className="mb-8 bg-red-50 border border-red-200 rounded-xl p-5 flex items-start gap-3 toast">
-              <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-red-800 text-sm">
-                  Gagal Mengirim Laporan
-                </p>
-                <p className="text-red-700 text-sm mt-1">{errorMsg}</p>
-              </div>
+            <div>
+              <p className="text-green-800 font-semibold text-sm">Pelaporan via WhatsApp</p>
+              <p className="text-green-700 text-sm mt-0.5">
+                Pilih kategori laporan Anda di bawah ini. WhatsApp akan terbuka otomatis dengan template pesan yang sudah siap diisi.
+              </p>
             </div>
-          )}
-
-          {/* Form Card */}
-          {status !== 'success' && (
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sage-100/50 fade-up">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-sage-400/10 flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-sage-500" />
-                </div>
-                <div>
-                  <h2 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-900">
-                    Formulir Laporan
-                  </h2>
-                  <p className="text-sage-500 text-xs">
-                    Tanda (*) wajib diisi
-                  </p>
-                </div>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Nama & Telepon */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                      <span className="flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 text-sage-400" />
-                        Nama Pelapor *
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      name="nama_pelapor"
-                      value={form.nama_pelapor}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="Nama lengkap Anda"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                      <span className="flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5 text-sage-400" />
-                        No. Telepon
-                      </span>
-                    </label>
-                    <input
-                      type="tel"
-                      name="no_telepon"
-                      value={form.no_telepon}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="08xxxxxxxxxx"
-                    />
-                  </div>
-                </div>
-
-                {/* Email & Alamat */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                      <span className="flex items-center gap-1.5">
-                        <Mail className="w-3.5 h-3.5 text-sage-400" />
-                        Email
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="email@contoh.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                      <span className="flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-sage-400" />
-                        Alamat
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      name="alamat"
-                      value={form.alamat}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="Alamat Anda"
-                    />
-                  </div>
-                </div>
-
-                {/* Kategori */}
-                <div>
-                  <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                    <span className="flex items-center gap-1.5">
-                      <Tag className="w-3.5 h-3.5 text-sage-400" />
-                      Kategori Laporan *
-                    </span>
-                  </label>
-                  <select
-                    name="kategori"
-                    value={form.kategori}
-                    onChange={handleChange}
-                    className="form-select"
-                    required
-                  >
-                    <option value="">Pilih kategori...</option>
-                    {kategoriOptions.map((k) => (
-                      <option key={k} value={k}>
-                        {k}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Judul */}
-                <div>
-                  <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                    <span className="flex items-center gap-1.5">
-                      <FileText className="w-3.5 h-3.5 text-sage-400" />
-                      Judul Laporan *
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    name="judul"
-                    value={form.judul}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="Ringkasan singkat masalah"
-                    required
-                  />
-                </div>
-
-                {/* Deskripsi */}
-                <div>
-                  <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                    <span className="flex items-center gap-1.5">
-                      <MessageSquare className="w-3.5 h-3.5 text-sage-400" />
-                      Deskripsi Laporan *
-                    </span>
-                  </label>
-                  <textarea
-                    name="deskripsi"
-                    value={form.deskripsi}
-                    onChange={handleChange}
-                    className="form-textarea"
-                    placeholder="Jelaskan detail laporan Anda secara lengkap..."
-                    rows={5}
-                    required
-                  />
-                </div>
-
-                {/* Lokasi Kejadian */}
-                <div>
-                  <label className="block text-sage-700 text-sm font-medium mb-1.5">
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-sage-400" />
-                      Lokasi Kejadian
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    name="lokasi_kejadian"
-                    value={form.lokasi_kejadian}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="Alamat / patokan lokasi kejadian"
-                  />
-                </div>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="w-full btn-primary text-white py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Mengirim...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="flex items-center gap-2">
-                        <Send className="w-4 h-4" />
-                        Kirim Laporan
-                      </span>
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-          )}
-
-          {/* Info Box */}
-          <div className="mt-8 bg-white rounded-xl p-5 border border-sage-100/50 fade-up">
-            <h3 className="font-semibold text-sage-900 text-sm mb-3">
-              Informasi Pelaporan
-            </h3>
-            <ul className="space-y-2">
-              {[
-                'Laporan yang masuk akan diverifikasi oleh petugas kelurahan.',
-                'Identitas pelapor dijaga kerahasiaannya.',
-                'Tindak lanjut laporan akan diinformasikan melalui kontak yang diberikan.',
-                'Untuk laporan darurat, segera hubungi kantor kelurahan di (0431) xxx-xxxx.',
-              ].map((info, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-sage-600 text-sm"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-sage-400 shrink-0 mt-1.5" />
-                  {info}
-                </li>
-              ))}
-            </ul>
           </div>
+
+          {/* Tombol Lapor Umum */}
+          <div className="text-center mb-12">
+            <button
+              onClick={handleLaporUmum}
+              className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-lg shadow-green-600/20 transition-all hover:shadow-xl cursor-pointer"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.522 5.826L.054 23.272a.75.75 0 0 0 .92.92l5.49-1.47A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.51-5.17-1.402l-.37-.222-3.808 1.02 1.037-3.79-.24-.378A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+              </svg>
+              Kirim Laporan via WhatsApp
+              <ExternalLink className="w-4 h-4 opacity-80" />
+            </button>
+          </div>
+
+          {/* Panduan Singkat */}
+          <div className="bg-white rounded-2xl p-6 border border-sage-100/50 shadow-sm">
+            <h3 className="font-[family-name:var(--font-heading)] font-bold text-sage-900 text-lg mb-5 flex items-center gap-2">
+              <Info className="w-5 h-5 text-sage-400" />
+              Panduan Pelaporan
+            </h3>
+            <div className="grid sm:grid-cols-3 gap-5">
+              {[
+                {
+                  step: '1',
+                  title: 'Pilih Kategori',
+                  desc: 'Klik kategori yang sesuai dengan masalah yang ingin dilaporkan.',
+                },
+                {
+                  step: '2',
+                  title: 'Isi Detail di WA',
+                  desc: 'WhatsApp akan terbuka dengan template. Lengkapi nama, alamat, dan deskripsi Anda.',
+                },
+                {
+                  step: '3',
+                  title: 'Kirim & Tunggu',
+                  desc: 'Kirim pesan. Petugas kelurahan akan segera merespons dan menindaklanjuti.',
+                },
+              ].map((s) => (
+                <div key={s.step} className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-sage-400/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-sage-600 font-bold text-sm">{s.step}</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sage-900 text-sm mb-1">{s.title}</p>
+                    <p className="text-sage-500 text-xs leading-relaxed">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 pt-5 border-t border-sage-100 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+              <p className="text-sage-500 text-xs">
+                Untuk laporan darurat atau bencana, segera hubungi kantor kelurahan atau nomor darurat setempat.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
     </div>
