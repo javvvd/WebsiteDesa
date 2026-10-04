@@ -1,53 +1,8 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
-import { Users, User, ArrowDown } from 'lucide-react';
-import Image from 'next/image';
-
-const struktur = {
-  lurah: {
-    jabatan: 'Lurah Kakaskasen Dua',
-    nama: 'Nama Lurah, S.IP',
-    nip: '19801231 200501 1 001',
-  },
-  sekretaris: {
-    jabatan: 'Sekretaris Kelurahan',
-    nama: 'Nama Sekretaris, S.E.',
-    nip: '19851231 201001 2 002',
-  },
-  seksi: [
-    {
-      jabatan: 'Kasi Pemerintahan & Trantib',
-      nama: 'Nama Kasi Pem',
-      nip: '19901231 201501 1 003',
-    },
-    {
-      jabatan: 'Kasi Pembangunan & Kesra',
-      nama: 'Nama Kasi Pembangunan',
-      nip: '19881231 201301 2 004',
-    },
-    {
-      jabatan: 'Kasi Pelayanan Umum',
-      nama: 'Nama Kasi Pelayanan',
-      nip: '19921231 201801 2 005',
-    },
-  ],
-  lingkungan: [
-    'Kepala Lingkungan I',
-    'Kepala Lingkungan II',
-    'Kepala Lingkungan III',
-    'Kepala Lingkungan IV',
-    'Kepala Lingkungan V',
-    'Kepala Lingkungan VI',
-    'Kepala Lingkungan VII',
-    'Kepala Lingkungan VIII',
-    'Kepala Lingkungan IX',
-    'Kepala Lingkungan X',
-    'Kepala Lingkungan XI',
-    'Kepala Lingkungan XII',
-    'Kepala Lingkungan XIII',
-  ],
-};
+import { Users, User, ArrowDown, Loader2 } from 'lucide-react';
 
 function StaffCard({ jabatan, nama, nip, isMain = false }) {
   return (
@@ -58,8 +13,6 @@ function StaffCard({ jabatan, nama, nip, isMain = false }) {
     >
       <div className="w-20 h-20 rounded-full bg-sage-50 mb-4 border-2 border-sage-200 overflow-hidden flex items-center justify-center shrink-0">
         <User className="w-8 h-8 text-sage-300" />
-        {/* Uncomment jika ingin pakai foto sungguhan */}
-        {/* <Image src="/path-to-photo.jpg" alt={nama} width={80} height={80} className="object-cover w-full h-full" /> */}
       </div>
       <h3 className="font-[family-name:var(--font-heading)] font-bold text-sage-900 text-lg mb-1 leading-tight">
         {nama}
@@ -76,6 +29,25 @@ function StaffCard({ jabatan, nama, nip, isMain = false }) {
 
 export default function StrukturPage() {
   const scrollRef = useScrollAnimation();
+  const [data, setData] = useState({ lurah: null, sekretaris: null, seksi: [], lingkungan: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/aparatur')
+      .then((res) => res.json())
+      .then((aparatur) => {
+        if (!Array.isArray(aparatur)) return;
+        const parsed = {
+          lurah: aparatur.find(a => a.kategori === 'lurah'),
+          sekretaris: aparatur.find(a => a.kategori === 'sekretaris'),
+          seksi: aparatur.filter(a => a.kategori === 'seksi'),
+          lingkungan: aparatur.filter(a => a.kategori === 'lingkungan')
+        };
+        setData(parsed);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div ref={scrollRef}>
@@ -106,67 +78,82 @@ export default function StrukturPage() {
       </section>
 
       {/* ─── BAGAN STRUKTUR ─── */}
-      <section className="py-16 md:py-24 bg-sage-50">
+      <section className="py-16 md:py-24 bg-sage-50 min-h-[50vh]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col items-center fade-up">
-            {/* Lurah */}
-            <div className="w-full max-w-sm mb-6 relative">
-              <StaffCard {...struktur.lurah} isMain={true} />
-              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex justify-center">
-                <ArrowDown className="w-5 h-5 text-sage-300" />
-              </div>
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 text-sage-400 animate-spin" />
             </div>
-
-            {/* Sekretaris */}
-            <div className="w-full max-w-sm mb-12 relative fade-up stagger-1">
-              <StaffCard {...struktur.sekretaris} />
-            </div>
-
-            {/* Garis Horizontal Penghubung Seksi */}
-            <div className="hidden md:block w-2/3 h-px bg-sage-300 mb-6 fade-up stagger-2" />
-            <div className="hidden md:flex w-2/3 justify-between px-10 mb-2 fade-up stagger-2">
-              <ArrowDown className="w-5 h-5 text-sage-300" />
-              <ArrowDown className="w-5 h-5 text-sage-300" />
-              <ArrowDown className="w-5 h-5 text-sage-300" />
-            </div>
-
-            {/* Seksi-seksi */}
-            <div className="grid md:grid-cols-3 gap-6 w-full mb-16 fade-up stagger-3">
-              {struktur.seksi.map((seksi, i) => (
-                <div key={i} className="flex flex-col items-center">
-                  <div className="md:hidden w-px h-6 bg-sage-300 mb-2" />
-                  <div className="md:hidden flex justify-center mb-4">
+          ) : (
+            <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-8 duration-700">
+              {/* Lurah */}
+              {data.lurah && (
+                <div className="w-full max-w-sm mb-6 relative">
+                  <StaffCard {...data.lurah} isMain={true} />
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex justify-center">
                     <ArrowDown className="w-5 h-5 text-sage-300" />
                   </div>
-                  <StaffCard {...seksi} />
                 </div>
-              ))}
-            </div>
+              )}
 
-            {/* Kepala Lingkungan */}
-            <div className="w-full fade-up stagger-4">
-              <div className="text-center mb-8">
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-sage-900 mb-2">
-                  Kepala Lingkungan (Pala)
-                </h3>
-                <div className="section-divider mx-auto" />
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {struktur.lingkungan.map((pala, i) => (
-                  <div key={i} className="bg-white rounded-xl p-4 border border-sage-100 text-center shadow-sm">
-                    <div className="w-12 h-12 mx-auto rounded-full bg-sage-50 flex items-center justify-center mb-3">
-                      <User className="w-5 h-5 text-sage-400" />
-                    </div>
-                    <p className="text-sage-900 font-semibold text-sm leading-tight">Nama Pala</p>
-                    <p className="text-sage-500 text-xs mt-1">{pala}</p>
+              {/* Sekretaris */}
+              {data.sekretaris && (
+                <div className="w-full max-w-sm mb-12 relative animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
+                  <StaffCard {...data.sekretaris} />
+                </div>
+              )}
+
+              {/* Garis Horizontal Penghubung Seksi */}
+              {data.seksi.length > 0 && (
+                <>
+                  <div className="hidden md:block w-2/3 h-px bg-sage-300 mb-6 animate-in fade-in duration-700 delay-200 fill-mode-both" />
+                  <div className="hidden md:flex w-2/3 justify-between px-10 mb-2 animate-in fade-in duration-700 delay-200 fill-mode-both">
+                    <ArrowDown className="w-5 h-5 text-sage-300" />
+                    <ArrowDown className="w-5 h-5 text-sage-300" />
+                    <ArrowDown className="w-5 h-5 text-sage-300" />
                   </div>
-                ))}
-              </div>
+                  {/* Seksi-seksi */}
+                  <div className="grid md:grid-cols-3 gap-6 w-full mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
+                    {data.seksi.map((seksi) => (
+                      <div key={seksi.id} className="flex flex-col items-center">
+                        <div className="md:hidden w-px h-6 bg-sage-300 mb-2" />
+                        <div className="md:hidden flex justify-center mb-4">
+                          <ArrowDown className="w-5 h-5 text-sage-300" />
+                        </div>
+                        <StaffCard {...seksi} />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Kepala Lingkungan */}
+              {data.lingkungan.length > 0 && (
+                <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+                  <div className="text-center mb-8">
+                    <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-sage-900 mb-2">
+                      Kepala Lingkungan (Pala)
+                    </h3>
+                    <div className="section-divider mx-auto" />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    {data.lingkungan.map((pala) => (
+                      <div key={pala.id} className="bg-white rounded-xl p-4 border border-sage-100 text-center shadow-sm">
+                        <div className="w-12 h-12 mx-auto rounded-full bg-sage-50 flex items-center justify-center mb-3">
+                          <User className="w-5 h-5 text-sage-400" />
+                        </div>
+                        <p className="text-sage-900 font-semibold text-sm leading-tight">{pala.nama || 'Nama Pala'}</p>
+                        <p className="text-sage-500 text-xs mt-1">{pala.jabatan}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
             </div>
-            
-          </div>
+          )}
 
         </div>
       </section>

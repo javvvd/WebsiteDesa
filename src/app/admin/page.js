@@ -22,6 +22,7 @@ import {
   Clock,
   Link as LinkIcon,
   Paperclip,
+  Users,
 } from 'lucide-react';
 
 const statusColors = {
@@ -77,6 +78,13 @@ export default function AdminPage() {
   const [laporanList, setLaporanList] = useState([]);
   const [loadingL, setLoadingL] = useState(true);
 
+  // Aparatur state
+  const [aparaturList, setAparaturList] = useState([]);
+  const [loadingA, setLoadingA] = useState(true);
+  const [showFormA, setShowFormA] = useState(false);
+  const [formA, setFormA] = useState({ id: null, jabatan: '', nama: '', nip: '' });
+  const [savingA, setSavingA] = useState(false);
+
   // Toast
   const [toast, setToast] = useState(null);
 
@@ -130,13 +138,27 @@ export default function AdminPage() {
     }
     setLoadingL(false);
   }, []);
+
+  const fetchAparatur = useCallback(async () => {
+    setLoadingA(true);
+    try {
+      const res = await fetch('/api/aparatur');
+      const data = await res.json();
+      setAparaturList(Array.isArray(data) ? data : []);
+    } catch {
+      setAparaturList([]);
+    }
+    setLoadingA(false);
+  }, []);
+
   useEffect(() => {
     if (user) {
       fetchPengumuman();
       fetchGaleri();
       fetchLaporan();
+      fetchAparatur();
     }
-  }, [user, fetchPengumuman, fetchGaleri, fetchLaporan]);
+  }, [user, fetchPengumuman, fetchGaleri, fetchLaporan, fetchAparatur]);
 
   const handleFileUpload = async (e, setForm, field, setFileNameField = null) => {
     const file = e.target.files[0];
@@ -284,6 +306,31 @@ export default function AdminPage() {
     }
   };
 
+  // Aparatur CRUD (Update Only)
+  const handleEditA = (item) => {
+    setFormA({ id: item.id, jabatan: item.jabatan, nama: item.nama, nip: item.nip || '' });
+    setShowFormA(true);
+  };
+
+  const handleSaveA = async (e) => {
+    e.preventDefault();
+    setSavingA(true);
+    try {
+      const res = await fetch(`/api/aparatur/${formA.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nama: formA.nama, nip: formA.nip }),
+      });
+      if (!res.ok) throw new Error();
+      showToast('success', 'Data aparatur diperbarui');
+      setShowFormA(false);
+      fetchAparatur();
+    } catch {
+      showToast('error', 'Gagal menyimpan data aparatur');
+    }
+    setSavingA(false);
+  };
+
 
   if (authLoading || !user) {
     return (
@@ -405,6 +452,17 @@ export default function AdminPage() {
           >
             <FileText className="w-4 h-4" />
             Laporan Warga
+          </button>
+          <button
+            onClick={() => setTab('aparatur')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === 'aparatur'
+                ? 'bg-sage-500 text-white'
+                : 'text-sage-600 hover:bg-sage-50'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            Struktur Desa
           </button>
         </div>
 
@@ -919,7 +977,128 @@ export default function AdminPage() {
             )}
           </div>
         )}
+
+        {/* ─── APARATUR TAB ─── */}
+        {tab === 'aparatur' && (
+          <div className="animate-in bg-white rounded-2xl shadow-sm border border-sage-100 overflow-hidden">
+            <div className="p-6 border-b border-sage-100 flex items-center justify-between bg-sage-50/50">
+              <h2 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-900 flex items-center gap-2">
+                <Users className="w-5 h-5 text-sage-500" />
+                Struktur Perangkat Desa
+              </h2>
+            </div>
+            
+            {loadingA ? (
+              <div className="flex justify-center p-12">
+                <Loader2 className="w-8 h-8 text-sage-400 animate-spin" />
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-sage-50/80 text-sage-600 text-xs uppercase tracking-wider border-b border-sage-100">
+                      <th className="px-6 py-4 font-semibold">Jabatan</th>
+                      <th className="px-6 py-4 font-semibold">Nama Pejabat</th>
+                      <th className="px-6 py-4 font-semibold">NIP / Keterangan</th>
+                      <th className="px-6 py-4 font-semibold w-24 text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-sage-100/50">
+                    {aparaturList.map((item) => (
+                      <tr key={item.id} className="hover:bg-sage-50/30 transition-colors">
+                        <td className="px-6 py-4">
+                          <p className="font-semibold text-sage-900">{item.jabatan}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <p className="text-sm text-sage-600">{item.nama}</p>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-sage-500">
+                          {item.nip || '-'}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <button
+                            onClick={() => handleEditA(item)}
+                            className="p-2 text-sage-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                            title="Edit"
+                          >
+                            <Edit3 className="w-4 h-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* MODAL EDIT APARATUR */}
+      {showFormA && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={() => setShowFormA(false)}
+              className="absolute top-4 right-4 text-sage-400 hover:text-sage-600 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-900 mb-6">
+              Edit {formA.jabatan}
+            </h3>
+            
+            <form onSubmit={handleSaveA} className="space-y-4">
+              <div>
+                <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                  Nama Pejabat *
+                </label>
+                <input
+                  type="text"
+                  value={formA.nama}
+                  onChange={(e) => setFormA({ ...formA, nama: e.target.value })}
+                  className="form-input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sage-700 text-sm font-medium mb-1.5">
+                  NIP (Opsional)
+                </label>
+                <input
+                  type="text"
+                  value={formA.nip}
+                  onChange={(e) => setFormA({ ...formA, nip: e.target.value })}
+                  className="form-input"
+                  placeholder="Contoh: 19801231 200501 1 001"
+                />
+              </div>
+              
+              <div className="pt-4 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowFormA(false)}
+                  className="btn-secondary px-5 py-2.5 text-sm cursor-pointer"
+                  disabled={savingA}
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="btn-primary px-5 py-2.5 text-sm flex items-center justify-center cursor-pointer min-w-[100px]"
+                  disabled={savingA}
+                >
+                  {savingA ? (
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  ) : (
+                    'Simpan'
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
