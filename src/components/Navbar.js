@@ -21,7 +21,7 @@ const navItems = [
   { label: 'Struktur', href: '/struktur' },
   { label: 'Pengumuman', href: '/pengumuman' },
   { label: 'Wisata', href: '/wisata' },
-  { label: 'Produk', href: '/produk' },
+  { label: 'Galeri', href: '/galeri' },
   { label: 'Pelaporan', href: '/pelaporan' },
   { label: 'Kontak', href: '/kontak' },
 ];

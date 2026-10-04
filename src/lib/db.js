@@ -62,5 +62,16 @@ export async function initDb() {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS galeri (
+      id SERIAL PRIMARY KEY,
+      judul VARCHAR(200) NOT NULL,
+      deskripsi TEXT,
+      gambar_url TEXT NOT NULL,
+      created_by VARCHAR(50),
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+
   return true;
 }
