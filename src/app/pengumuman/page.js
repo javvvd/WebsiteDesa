@@ -69,7 +69,7 @@ export default function PengumumanPage() {
               </span>
             </div>
           ) : pengumuman.length === 0 ? (
-            <div className="text-center py-20 fade-up">
+            <div className="text-center py-20 animate-in">
               <Megaphone className="w-12 h-12 text-sage-300 mx-auto mb-4" />
               <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-700 mb-2">
                 Belum Ada Pengumuman
@@ -83,13 +83,12 @@ export default function PengumumanPage() {
               {pengumuman.map((item, i) => (
                 <article
                   key={item.id}
-                  className={`bg-white rounded-xl p-5 md:p-6 border shadow-sm transition-all hover:shadow-md fade-up stagger-${
-                    (i % 4) + 1
-                  } ${
+                  className={`bg-white rounded-xl p-5 md:p-6 border shadow-sm transition-all hover:shadow-md animate-in ${
                     item.is_pinned
                       ? 'border-sage-300 ring-1 ring-sage-200'
                       : 'border-sage-100/50'
                   }`}
+                  style={{ animationDelay: `${i * 100}ms` }}
                 >
                   <div className="flex items-start gap-4">
                     <div
