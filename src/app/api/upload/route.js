@@ -26,7 +26,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error saat upload ke blob:', error);
     return NextResponse.json(
-      { error: 'Gagal mengunggah file' },
+      { error: error.message || 'Gagal mengunggah file' },
       { status: 500 }
     );
   }

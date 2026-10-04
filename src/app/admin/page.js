@@ -159,7 +159,14 @@ export default function AdminPage() {
         body: formData,
       });
 
-      if (!res.ok) throw new Error('Upload gagal');
+      if (!res.ok) {
+        let errMessage = 'Upload gagal';
+        try {
+          const errData = await res.json();
+          errMessage = errData.error || errMessage;
+        } catch (e) {}
+        throw new Error(errMessage);
+      }
       
       const blob = await res.json();
 
