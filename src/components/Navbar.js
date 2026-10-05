@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import LoginModal from '@/components/LoginModal';
@@ -76,8 +77,14 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded-full bg-sage-400/80 flex items-center justify-center text-white font-bold text-sm font-[family-name:var(--font-heading)] group-hover:bg-sage-500 transition-colors">
-                K2
+              <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                <Image 
+                  src="/logo-tomohon.png" 
+                  alt="Logo Tomohon" 
+                  width={40} 
+                  height={40} 
+                  className="object-contain"
+                />
               </div>
               <div className="hidden sm:block">
                 <p className="text-white font-semibold text-sm leading-tight">
