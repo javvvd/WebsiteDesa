@@ -167,14 +167,14 @@ export default function KontakPage() {
             <div className="fade-right">
               <div className="map-container h-full min-h-[450px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.276!2d124.8!3d1.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3287056c2e16bb03%3A0x7d35d4eb7dd50c54!2sKakaskasen%20Dua%2C%20Tomohon%20Utara%2C%20Kota%20Tomohon%2C%20Sulawesi%20Utara!5e0!3m2!1sid!2sid!4v1"
+                  src="https://maps.google.com/maps?q=Kantor+Kelurahan+Kakaskasen+Dua,+Tomohon+Utara,+Sulawesi+Utara&t=&z=17&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: '450px' }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Lokasi Kakaskasen Dua di Google Maps"
+                  title="Lokasi Kantor Kelurahan Kakaskasen Dua di Google Maps"
                 />
               </div>
             </div>
