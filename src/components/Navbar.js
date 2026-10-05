@@ -78,11 +78,11 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-10 h-10 flex items-center justify-center shrink-0">
-                <Image 
-                  src="/logo-tomohon.png" 
-                  alt="Logo Tomohon" 
-                  width={40} 
-                  height={40} 
+                <Image
+                  src="/logo-tomohon.png"
+                  alt="Logo Tomohon"
+                  width={40}
+                  height={40}
                   className="object-contain"
                 />
               </div>
@@ -90,7 +90,7 @@ export default function Navbar() {
                 <p className="text-white font-semibold text-sm leading-tight">
                   Kakaskasen Dua
                 </p>
-                <p className="text-white/60 text-xs">Kota Tomohon</p>
+                <p className="text-white/60 text-xs">Tomohon Utara</p>
               </div>
             </Link>
 
@@ -100,11 +100,10 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`nav-link text-sm font-medium transition-colors ${
-                    pathname === item.href
+                  className={`nav-link text-sm font-medium transition-colors ${pathname === item.href
                       ? 'text-white active'
                       : 'text-white/80 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -199,9 +198,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`mobile-menu fixed inset-0 z-[60] bg-sage-900/98 backdrop-blur-lg flex flex-col ${
-          mobileOpen ? 'open' : ''
-        }`}
+        className={`mobile-menu fixed inset-0 z-[60] bg-sage-900/98 backdrop-blur-lg flex flex-col ${mobileOpen ? 'open' : ''
+          }`}
       >
         <div className="flex items-center justify-between px-6 py-4">
           <span className="text-white font-semibold font-[family-name:var(--font-heading)] text-lg">
@@ -221,11 +219,10 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`text-xl font-medium transition-colors flex items-center gap-2 ${
-                pathname === item.href
+              className={`text-xl font-medium transition-colors flex items-center gap-2 ${pathname === item.href
                   ? 'text-sage-300'
                   : 'text-white hover:text-sage-300'
-              }`}
+                }`}
             >
               <ChevronRight className="w-4 h-4" />
               {item.label}
