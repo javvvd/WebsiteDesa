@@ -59,7 +59,7 @@ export default function PelaporanPage() {
             <div>
               <p className="text-green-800 font-semibold text-sm">Pelaporan via WhatsApp</p>
               <p className="text-green-700 text-sm mt-0.5">
-                Pilih kategori laporan Anda di bawah ini. WhatsApp akan terbuka otomatis dengan template pesan yang sudah siap diisi.
+                WhatsApp akan terbuka otomatis dengan template pesan yang sudah siap diisi.
               </p>
             </div>
           </div>
@@ -89,12 +89,12 @@ export default function PelaporanPage() {
               {[
                 {
                   step: '1',
-                  title: 'Pilih Kategori',
-                  desc: 'Klik kategori yang sesuai dengan masalah yang ingin dilaporkan.',
+                  title: 'Klik Kirim Laporan',
+                  desc: 'Klik tombol Kirim Laporan via WhatsApp.',
                 },
                 {
                   step: '2',
-                  title: 'Isi Detail di WA',
+                  title: 'Lengkapi Detail di WA',
                   desc: 'WhatsApp akan terbuka dengan template. Lengkapi nama, alamat, dan deskripsi Anda.',
                 },
                 {
