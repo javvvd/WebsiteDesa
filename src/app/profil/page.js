@@ -47,7 +47,7 @@ export default function ProfilPage() {
             <div className="fade-left">
               <div className="rounded-2xl overflow-hidden shadow-xl shadow-sage-400/15">
                 <Image
-                  src="/images/hero-bg.jpg"
+                  src="/profil-gambaran-2.jpg"
                   alt="Panorama Desa Kakaskasen Dua"
                   width={700}
                   height={450}
@@ -61,7 +61,7 @@ export default function ProfilPage() {
                 Gambaran Umum
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold text-sage-900 mt-2 mb-4">
-                Desa di Antara Dua Gunung
+                Kelurahan di Antara Dua Gunung
               </h2>
               <p className="text-sage-600 leading-relaxed mb-4 text-sm">
                 Kakaskasen Dua adalah kelurahan yang berlokasi strategis di

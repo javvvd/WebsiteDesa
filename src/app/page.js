@@ -25,6 +25,7 @@ import {
   Megaphone,
   Pin,
   Calendar,
+  Camera,
 } from 'lucide-react';
 
 /* ─── Animated counter ─── */
@@ -133,22 +134,22 @@ export default function HomePage() {
       href: '/pelaporan',
     },
     {
+      icon: Megaphone,
+      title: 'Pengumuman',
+      desc: 'Informasi, berita, dan kebijakan terbaru dari Kelurahan Kakaskasen Dua.',
+      href: '/pengumuman',
+    },
+    {
       icon: Compass,
       title: 'Wisata & Destinasi',
-      desc: 'Jelajahi destinasi alam, budaya, dan agrowisata desa kami.',
+      desc: 'Jelajahi destinasi alam, budaya, dan agrowisata kelurahan kami.',
       href: '/wisata',
     },
     {
-      icon: ShieldCheck,
-      title: 'Layanan Publik',
-      desc: 'Informasi pelayanan administrasi dan kependudukan kelurahan.',
-      href: '/profil',
-    },
-    {
-      icon: Heart,
-      title: 'Produk Unggulan',
-      desc: 'Dukung UMKM lokal melalui produk-produk unggulan desa.',
-      href: '/produk',
+      icon: Camera,
+      title: 'Galeri Kelurahan',
+      desc: 'Dokumentasi kegiatan dan momen-momen penting di Kakaskasen Dua.',
+      href: '/galeri',
     },
   ];
 

@@ -12,40 +12,22 @@ import {
 
 const wisataData = [
   {
-    title: 'Gunung Lokon',
-    category: 'Wisata Alam',
-    desc: 'Gunung berapi aktif setinggi 1.580 mdpl dengan jalur trekking menantang melalui hutan tropis yang asri.',
-    image: '/images/wisata-lokon.jpg',
-  },
-  {
-    title: 'Gunung Mahawu',
-    category: 'Wisata Alam',
-    desc: 'Kawah danau berwarna hijau toska yang memukau dengan panorama 360° dari puncak setinggi 1.324 mdpl.',
-    image: '/images/wisata-mahawu.jpg',
-  },
-  {
-    title: 'Bukit Doa Mahawu',
-    category: 'Wisata Religi',
-    desc: 'Tempat perenungan spiritual di puncak bukit dengan pemandangan kota Tomohon dan pegunungan.',
-    icon: Church,
-  },
-  {
-    title: 'Agrowisata Bunga',
-    category: 'Agrowisata',
-    desc: 'Kunjungi sentra pembibitan bunga yang menjadi tulang punggung Tomohon International Flower Festival.',
-    icon: Flower,
-  },
-  {
-    title: 'Jungle Trekking',
-    category: 'Petualangan',
-    desc: 'Susuri jalur trekking melalui hutan tropis yang rimbun menuju kawah gunung berapi aktif.',
+    title: 'Taman Kelong',
+    category: 'Wisata Kuliner & Rekreasi',
+    desc: 'Nikmati suasana santai dengan pemandangan alam sambil menikmati hidangan khas di tengah taman yang asri.',
     icon: Trees,
   },
   {
-    title: 'Cooking Class',
-    category: 'Wisata Edukasi',
-    desc: 'Belajar memasak kuliner khas Minahasa langsung dari ibu-ibu desa dalam suasana autentik.',
-    icon: ChefHat,
+    title: 'Taman Wisata Pelangi',
+    category: 'Wisata Keluarga',
+    desc: 'Destinasi rekreasi keluarga yang penuh warna dengan berbagai spot foto menarik dan fasilitas bermain.',
+    icon: Flower,
+  },
+  {
+    title: 'Tomohon Show Window',
+    category: 'Agrowisata',
+    desc: 'Pusat pameran dan percontohan pertanian unggulan, menampilkan keindahan budidaya bunga dan tanaman khas Tomohon.',
+    icon: Mountain,
   },
 ];
 
