@@ -89,7 +89,7 @@ export default function KontakPage() {
                       <p className="font-medium text-sage-900 text-sm mb-0.5">
                         Telepon
                       </p>
-                      <p className="text-sage-600 text-sm">(0431) xxx-xxxx</p>
+                      <p className="text-sage-600 text-sm">0878-8317-0158</p>
                     </div>
                   </div>
 
@@ -167,14 +167,14 @@ export default function KontakPage() {
             <div className="fade-right">
               <div className="map-container h-full min-h-[450px]">
                 <iframe
-                  src="https://maps.google.com/maps?q=Kantor+Kelurahan+Kakaskasen+Dua,+Tomohon+Utara,+Sulawesi+Utara&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Kakaskasen+Dua,+Tomohon+Utara,+Sulawesi+Utara&t=h&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: '450px' }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Lokasi Kantor Kelurahan Kakaskasen Dua di Google Maps"
+                  title="Peta Wilayah Kakaskasen Dua di Google Maps"
                 />
               </div>
             </div>

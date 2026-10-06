@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   MapPin,
   Phone,
@@ -32,8 +33,14 @@ export default function Footer() {
           {/* Column 1: About */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-sage-400/30 flex items-center justify-center text-white font-bold text-sm font-[family-name:var(--font-heading)]">
-                K2
+              <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                <Image 
+                  src="/logo-tomohon.png" 
+                  alt="Logo Tomohon" 
+                  width={40} 
+                  height={40} 
+                  className="object-contain"
+                />
               </div>
               <div>
                 <p className="font-semibold text-base leading-tight">
@@ -92,7 +99,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-sage-400 shrink-0" />
-                <p className="text-sage-300/70 text-sm">(0431) xxx-xxxx</p>
+                <p className="text-sage-300/70 text-sm">0878-8317-0158</p>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-sage-400 shrink-0" />

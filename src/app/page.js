@@ -158,7 +158,7 @@ export default function HomePage() {
       <section className="hero-section">
         <div
           className="hero-bg"
-          style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+          style={{ backgroundImage: "url('/hero-image.jpg')" }}
         />
         <div className="hero-overlay" />
         <HeroParticles />
@@ -233,9 +233,8 @@ export default function HomePage() {
               <Link
                 key={item.title}
                 href={item.href}
-                className={`feature-card bg-sage-50 rounded-xl p-6 border border-sage-100/50 group fade-up stagger-${
-                  i + 1
-                }`}
+                className={`feature-card bg-sage-50 rounded-xl p-6 border border-sage-100/50 group fade-up stagger-${i + 1
+                  }`}
               >
                 <div className="feature-icon w-12 h-12 rounded-lg bg-sage-400/12 flex items-center justify-center mb-4">
                   <item.icon className="w-6 h-6 text-sage-500" />
@@ -389,9 +388,8 @@ export default function HomePage() {
             {features.map((item, i) => (
               <div
                 key={item.title}
-                className={`feature-card bg-sage-50 rounded-xl p-6 border border-sage-100/50 fade-up stagger-${
-                  i + 1
-                }`}
+                className={`feature-card bg-sage-50 rounded-xl p-6 border border-sage-100/50 fade-up stagger-${i + 1
+                  }`}
               >
                 <div className="feature-icon w-12 h-12 rounded-lg bg-sage-400/12 flex items-center justify-center mb-4">
                   <item.icon className="w-6 h-6 text-sage-500" />
@@ -426,9 +424,8 @@ export default function HomePage() {
               {pengumuman.map((item, i) => (
                 <article
                   key={item.id}
-                  className={`bg-white rounded-xl p-5 border shadow-sm fade-up stagger-${i + 1} ${
-                    item.is_pinned ? 'border-sage-300' : 'border-sage-100/50'
-                  }`}
+                  className={`bg-white rounded-xl p-5 border shadow-sm fade-up stagger-${i + 1} ${item.is_pinned ? 'border-sage-300' : 'border-sage-100/50'
+                    }`}
                 >
                   <div className="flex items-center gap-2 mb-3">
                     {item.is_pinned && <Pin className="w-3 h-3 text-sage-500" />}
@@ -466,6 +463,33 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ─── PETA LOKASI ─── */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 fade-up">
+            <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
+              Lokasi
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-sage-900 mt-2 mb-3">
+              Kakaskasen Dua
+            </h2>
+            <div className="section-divider mb-4" />
+          </div>
+          <div className="w-full h-[400px] rounded-2xl overflow-hidden border border-sage-100 shadow-sm fade-up">
+            <iframe
+              src="https://maps.google.com/maps?q=Kakaskasen+Dua,+Tomohon+Utara,+Sulawesi+Utara&t=h&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Peta Wilayah Kakaskasen Dua di Google Maps"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* ─── CTA PELAPORAN ─── */}
       <section className="py-16 md:py-20 bg-sage-900">
