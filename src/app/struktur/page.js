@@ -29,7 +29,7 @@ function StaffCard({ jabatan, nama, nip, isMain = false }) {
 
 export default function StrukturPage() {
   const scrollRef = useScrollAnimation();
-  const [data, setData] = useState({ lurah: null, sekretaris: null, seksi: [], lingkungan: [] });
+  const [data, setData] = useState({ lurah: null, sekretaris: null, seksi: [], lingkungan: [], wakil_lingkungan: [] });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,7 +41,8 @@ export default function StrukturPage() {
           lurah: aparatur.find(a => a.kategori === 'lurah'),
           sekretaris: aparatur.find(a => a.kategori === 'sekretaris'),
           seksi: aparatur.filter(a => a.kategori === 'seksi'),
-          lingkungan: aparatur.filter(a => a.kategori === 'lingkungan')
+          lingkungan: aparatur.filter(a => a.kategori === 'lingkungan'),
+          wakil_lingkungan: aparatur.filter(a => a.kategori === 'wakil_lingkungan')
         };
         setData(parsed);
       })
@@ -146,6 +147,30 @@ export default function StrukturPage() {
                         </div>
                         <p className="text-sage-900 font-semibold text-sm leading-tight">{pala.nama || 'Nama Pala'}</p>
                         <p className="text-sage-500 text-xs mt-1">{pala.jabatan}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Wakil Kepala Lingkungan */}
+              {data.wakil_lingkungan.length > 0 && (
+                <div className="w-full mt-16 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+                  <div className="text-center mb-8">
+                    <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-sage-900 mb-2">
+                      Wakil Kepala Lingkungan (Wakil Pala)
+                    </h3>
+                    <div className="section-divider mx-auto" />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    {data.wakil_lingkungan.map((wakil) => (
+                      <div key={wakil.id} className="bg-white rounded-xl p-4 border border-sage-100 text-center shadow-sm">
+                        <div className="w-12 h-12 mx-auto rounded-full bg-sage-50 flex items-center justify-center mb-3">
+                          <User className="w-5 h-5 text-sage-400" />
+                        </div>
+                        <p className="text-sage-900 font-semibold text-sm leading-tight">{wakil.nama || 'Nama Wakil Pala'}</p>
+                        <p className="text-sage-500 text-xs mt-1">{wakil.jabatan}</p>
                       </div>
                     ))}
                   </div>
