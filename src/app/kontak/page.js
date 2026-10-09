@@ -89,7 +89,7 @@ export default function KontakPage() {
                       <p className="font-medium text-sage-900 text-sm mb-0.5">
                         Telepon
                       </p>
-                      <p className="text-sage-600 text-sm">0878-8317-0158</p>
+                      <p className="text-sage-600 text-sm">12345</p>
                     </div>
                   </div>
 
