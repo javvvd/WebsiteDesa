@@ -15,18 +15,21 @@ const wisataData = [
     title: 'Taman Kelong',
     category: 'Wisata Kuliner & Rekreasi',
     desc: 'Nikmati suasana santai dengan pemandangan alam sambil menikmati hidangan khas di tengah taman yang asri.',
+    image: '/taman-kelong.jpg',
     icon: Trees,
   },
   {
     title: 'Taman Wisata Pelangi',
     category: 'Wisata Keluarga',
     desc: 'Destinasi rekreasi keluarga yang penuh warna dengan berbagai spot foto menarik dan fasilitas bermain.',
+    image: '/taman-wisata-pelangi.jpg',
     icon: Flower,
   },
   {
     title: 'Tomohon Show Window',
     category: 'Agrowisata',
     desc: 'Pusat pameran dan percontohan pertanian unggulan, menampilkan keindahan budidaya bunga dan tanaman khas Tomohon.',
+    image: '/tomohon-show-window.jpg',
     icon: Mountain,
   },
 ];

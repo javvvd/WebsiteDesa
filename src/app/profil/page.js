@@ -70,8 +70,7 @@ export default function ProfilPage() {
                 <strong>Gunung Mahawu</strong> di sisi timur.
               </p>
               <p className="text-sage-600 leading-relaxed mb-4 text-sm">
-                Dengan udara sejuk khas pegunungan pada ketinggian 600 meter di
-                atas permukaan laut dan pemandangan alam yang memukau, desa ini
+                Dengan udara sejuk khas pegunungan dan pemandangan alam yang memukau, desa ini
                 telah diakui sebagai salah satu desa wisata terbaik di Indonesia
                 melalui nominasi 75 besar ADWI 2023.
               </p>
@@ -104,13 +103,10 @@ export default function ProfilPage() {
               {/* Narasi Sejarah */}
               <div className="bg-white rounded-2xl p-6 md:p-8 border border-sage-100/50 shadow-sm mb-8">
                 <p className="text-sage-700 leading-relaxed text-sm mb-4">
-                  Kelurahan Kakaskasen Dua merupakan bagian dari kawasan Kakaskasen yang secara historis didiami oleh masyarakat Minahasa sejak zaman pra-kolonial. Nama <strong>"Kakaskasen"</strong> berasal dari bahasa Tombulu (salah satu sub-etnis Minahasa) yang berarti kawasan yang subur dan makmur.
-                </p>
-                <p className="text-sage-700 leading-relaxed text-sm mb-4">
-                  Pada masa pemerintahan kolonial Belanda, wilayah ini berkembang menjadi pusat pertanian dan perkebunan bunga, seiring dibangunnya jalur transportasi yang menghubungkan Tomohon dengan Manado. Potensi tanah yang subur di lereng gunung berapi menjadikan daerah ini sangat produktif.
+                  Nama <strong>"Kakaskasen"</strong> berasal dari bahasa Tombulu yang berarti kawasan yang subur dan makmur. Seiring dengan perkembangan penduduk dan kebutuhan akan peningkatan pelayanan publik, wilayah Kakaskasen yang awalnya merupakan satu kesatuan akhirnya mengalami pemekaran.
                 </p>
                 <p className="text-sage-700 leading-relaxed text-sm">
-                  Setelah kemerdekaan Indonesia, wilayah Kakaskasen dimekarkan menjadi tiga kelurahan yakni Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga, sebagai upaya untuk meningkatkan efektivitas pelayanan dan pemerintahan kepada masyarakat setempat.
+                  Pada tahun 1990-an, kawasan ini resmi dimekarkan menjadi beberapa kelurahan yang berdiri sendiri, di antaranya adalah Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga. Pemekaran ini bertujuan untuk mengoptimalkan efektivitas pemerintahan dan mempercepat pembangunan di Kelurahan Kakaskasen Dua.
                 </p>
               </div>
 
@@ -118,24 +114,19 @@ export default function ProfilPage() {
               <div className="space-y-0">
                 {[
                   {
-                    tahun: 'Pra-1945',
-                    judul: 'Era Pra-Kemerdekaan',
-                    desc: 'Kawasan Kakaskasen telah didiami masyarakat Minahasa. Berkembang sebagai sentra pertanian dan perkebunan bunga di bawah pengaruh budaya Tombulu.',
-                  },
-                  {
-                    tahun: '1945',
-                    judul: 'Kemerdekaan Indonesia',
-                    desc: 'Kawasan Kakaskasen menjadi bagian dari Republik Indonesia. Masyarakat aktif berpartisipasi dalam perjuangan dan pembangunan nasional.',
+                    tahun: 'Pra-1990',
+                    judul: 'Kesatuan Kakaskasen',
+                    desc: 'Wilayah ini masih tergabung dalam satu kesatuan desa induk Kakaskasen yang dikenal dengan kesuburan tanahnya.',
                   },
                   {
                     tahun: '1990-an',
                     judul: 'Pemekaran Wilayah',
-                    desc: 'Wilayah Kakaskasen dimekarkan menjadi tiga kelurahan: Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga, dalam rangka peningkatan pelayanan publik.',
+                    desc: 'Desa induk Kakaskasen secara resmi dimekarkan menjadi tiga kelurahan terpisah: Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga demi meningkatkan pelayanan kepada masyarakat.',
                   },
                   {
-                    tahun: '2022',
-                    judul: 'Desa Wisata Unggulan',
-                    desc: 'Kelurahan Kakaskasen Dua meraih pengakuan nasional sebagai salah satu desa wisata terbaik, masuk nominasi 75 besar Anugerah Desa Wisata Indonesia (ADWI) 2023.',
+                    tahun: '2023',
+                    judul: 'Desa Wisata',
+                    desc: 'Kelurahan Kakaskasen Dua semakin dikenal luas dengan masuknya dalam nominasi 75 besar Anugerah Desa Wisata Indonesia (ADWI).',
                   },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-5 group">
@@ -180,9 +171,9 @@ export default function ProfilPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
             {[
-              { icon: Users, label: 'Penduduk', value: '4.290', sub: 'jiwa' },
+              { icon: Users, label: 'Penduduk', value: '4.409', sub: 'jiwa' },
               { icon: MapPin, label: 'Lingkungan', value: '13', sub: 'lingkungan' },
-              { icon: Plane, label: 'Dari Bandara', value: '~90', sub: 'menit' },
+
               { icon: Trophy, label: 'Prestasi', value: 'Top 75', sub: 'ADWI 2023' },
             ].map((item) => (
               <div
@@ -293,7 +284,7 @@ export default function ProfilPage() {
             <div className="flex items-center gap-2">
               <Building2 className="w-4 h-4 text-sage-400" />
               <p className="text-sage-700 text-sm">
-                Kantor Kelurahan Kakaskasen Dua, Kecamatan Tomohon Utara
+                Jl Mahawu no 137, Kelurahan Kakaskasen Dua, Kecamatan Tomohon Utara, Kota Tomohon, Sulawesi Utara 95416
               </p>
             </div>
           </div>

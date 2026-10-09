@@ -74,10 +74,6 @@ export default function AdminPage() {
   });
   const [savingG, setSavingG] = useState(false);
 
-  // Laporan state
-  const [laporanList, setLaporanList] = useState([]);
-  const [loadingL, setLoadingL] = useState(true);
-
   // Aparatur state
   const [aparaturList, setAparaturList] = useState([]);
   const [loadingA, setLoadingA] = useState(true);
@@ -125,20 +121,6 @@ export default function AdminPage() {
     setLoadingG(false);
   }, []);
 
-  const fetchLaporan = useCallback(async () => {
-    setLoadingL(true);
-    try {
-      const res = await fetch('/api/laporan');
-      if (res.ok) {
-        const data = await res.json();
-        setLaporanList(Array.isArray(data) ? data : []);
-      }
-    } catch {
-      setLaporanList([]);
-    }
-    setLoadingL(false);
-  }, []);
-
   const fetchAparatur = useCallback(async () => {
     setLoadingA(true);
     try {
@@ -155,10 +137,9 @@ export default function AdminPage() {
     if (user) {
       fetchPengumuman();
       fetchGaleri();
-      fetchLaporan();
       fetchAparatur();
     }
-  }, [user, fetchPengumuman, fetchGaleri, fetchLaporan, fetchAparatur]);
+  }, [user, fetchPengumuman, fetchGaleri, fetchAparatur]);
 
   const handleFileUpload = async (e, setForm, field, setFileNameField = null) => {
     const file = e.target.files[0];
@@ -398,24 +379,7 @@ export default function AdminPage() {
             </div>
             <p className="text-2xl font-bold text-sage-900">{galeriList.length}</p>
           </div>
-          <div className="bg-white rounded-xl p-4 border border-sage-100/50 shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <Clock className="w-4 h-4 text-blue-400" />
-              <span className="text-sage-500 text-xs font-medium">Laporan Baru</span>
-            </div>
-            <p className="text-2xl font-bold text-blue-600">
-              {laporanList.filter((l) => l.status === 'Diterima').length}
-            </p>
-          </div>
-          <div className="bg-white rounded-xl p-4 border border-sage-100/50 shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span className="text-sage-500 text-xs font-medium">Laporan Selesai</span>
-            </div>
-            <p className="text-2xl font-bold text-green-600">
-              {laporanList.filter((l) => l.status === 'Selesai').length}
-            </p>
-          </div>
+
         </div>
 
         {/* Tabs */}
@@ -442,17 +406,7 @@ export default function AdminPage() {
             <ImageIcon className="w-4 h-4" />
             Galeri
           </button>
-          <button
-            onClick={() => setTab('laporan')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
-              tab === 'laporan'
-                ? 'bg-sage-500 text-white'
-                : 'text-sage-600 hover:bg-sage-50'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            Laporan Warga
-          </button>
+
           <button
             onClick={() => setTab('aparatur')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
@@ -898,85 +852,7 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* ─── LAPORAN TAB ─── */}
-        {tab === 'laporan' && (
-          <div className="animate-in">
-            {loadingL ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="w-5 h-5 text-sage-400 animate-spin" />
-              </div>
-            ) : laporanList.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-xl border border-sage-100/50 shadow-sm">
-                <FileText className="w-10 h-10 text-sage-300 mx-auto mb-3" />
-                <p className="text-sage-500 text-sm">
-                  Belum ada laporan masuk
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {laporanList.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-xl p-5 border border-sage-100/50 shadow-sm transition-shadow hover:shadow-md"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <span
-                            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
-                              statusColors[item.status] || statusColors.Diterima
-                            }`}
-                          >
-                            {item.status}
-                          </span>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-sage-500 bg-sage-50 border border-sage-100 px-2.5 py-0.5 rounded-full">
-                            {item.kategori}
-                          </span>
-                        </div>
-                        <h4 className="font-semibold text-sage-900 text-base">
-                          {item.judul}
-                        </h4>
-                      </div>
-                      <span className="text-sage-400 text-xs flex items-center gap-1 shrink-0">
-                        <Clock className="w-3 h-3" />
-                        {formatDate(item.created_at)}
-                      </span>
-                    </div>
-                    <div className="bg-sage-50/50 rounded-lg p-3.5 mb-4 border border-sage-100/30">
-                      <p className="text-sage-700 text-sm leading-relaxed whitespace-pre-line">
-                        "{item.deskripsi}"
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-sage-600 bg-white rounded-lg p-3 border border-sage-100">
-                      <span className="flex items-center gap-1.5">
-                        <span className="font-semibold text-sage-900">Pelapor:</span> 
-                        {item.nama_pelapor}
-                      </span>
-                      {item.no_telepon && (
-                        <span className="flex items-center gap-1.5">
-                          <span className="font-semibold text-sage-900">Telp:</span> 
-                          {item.no_telepon}
-                        </span>
-                      )}
-                      {item.email && (
-                        <span className="flex items-center gap-1.5">
-                          <span className="font-semibold text-sage-900">Email:</span> 
-                          {item.email}
-                        </span>
-                      )}
-                      {item.lokasi_kejadian && (
-                        <span className="flex items-center gap-1.5">
-                          <span className="font-semibold text-sage-900">Lokasi:</span> 
-                          {item.lokasi_kejadian}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+
 
         {/* ─── APARATUR TAB ─── */}
         {tab === 'aparatur' && (

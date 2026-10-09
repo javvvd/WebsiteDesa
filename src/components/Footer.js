@@ -68,8 +68,6 @@ export default function Footer() {
                 { label: 'Beranda', href: '/' },
                 { label: 'Profil Kelurahan', href: '/profil' },
                 { label: 'Pariwisata', href: '/wisata' },
-                { label: 'Produk Unggulan', href: '/produk' },
-                { label: 'Pelaporan Warga', href: '/pelaporan' },
                 { label: 'Kontak', href: '/kontak' },
               ].map((link) => (
                 <li key={link.href}>
@@ -94,7 +92,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-sage-400 mt-0.5 shrink-0" />
                 <p className="text-sage-300/70 text-sm">
-                  Kel. Kakaskasen Dua, Kec. Tomohon Utara, Kota Tomohon, Sulawesi Utara 95416
+                  Jl Mahawu no 137, Kelurahan Kakaskasen Dua, Kecamatan Tomohon Utara, Kota Tomohon, Sulawesi Utara 95416
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -109,39 +107,27 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Social */}
-            <div className="flex items-center gap-2.5 mt-5">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-sage-700/50 hover:bg-sage-400/50 flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-sage-700/50 hover:bg-sage-400/50 flex items-center justify-center transition-colors"
-                aria-label="Instagram"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-sage-700/50 hover:bg-sage-400/50 flex items-center justify-center transition-colors"
-                aria-label="YouTube"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/></svg>
-              </a>
-            </div>
+
           </div>
         </div>
 
         {/* Bottom */}
         <div className="border-t border-sage-700/40 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-sage-300/50 text-xs text-center md:text-left">
-            &copy; {currentYear} Kelurahan Kakaskasen Dua. Hak cipta
-            dilindungi.
-          </p>
+          <div className="flex flex-col gap-2 items-center md:items-start">
+            <p className="text-sage-300/50 text-xs text-center md:text-left">
+              &copy; {currentYear} Kelurahan Kakaskasen Dua. Hak cipta
+              dilindungi.
+            </p>
+            <div className="flex items-center gap-2 mt-1 bg-sage-800/40 px-3 py-1.5 rounded-full border border-sage-700/50">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sage-300"></span>
+              </span>
+              <p className="text-sage-200 text-xs font-medium tracking-wide">
+                Dikembangkan oleh <span className="text-white font-bold">KKT 149 UNSRAT</span>
+              </p>
+            </div>
+          </div>
           <p className="text-sage-300/50 text-xs text-center md:text-right">
             Kecamatan Tomohon Utara, Kota Tomohon, Sulawesi Utara
           </p>

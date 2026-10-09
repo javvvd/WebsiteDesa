@@ -116,7 +116,7 @@ export default function HomePage() {
     },
     {
       icon: CloudSun,
-      title: 'Udara Sejuk 600 mdpl',
+      title: 'Udara Sejuk',
       desc: 'Berada di dataran tinggi dengan udara segar sepanjang tahun.',
     },
     {
@@ -264,24 +264,14 @@ export default function HomePage() {
               <div className="relative">
                 <div className="rounded-2xl overflow-hidden shadow-xl shadow-sage-400/15">
                   <Image
-                    src="/images/hero-bg.jpg"
-                    alt="Panorama Desa Kakaskasen Dua"
+                    src="/beranda-mengenal.jpg"
+                    alt="Panorama Kelurahan Kakaskasen Dua"
                     width={700}
                     height={400}
                     className="w-full h-[350px] object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-5 -right-3 md:-right-6 bg-white rounded-xl shadow-lg p-4 border border-sage-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-lg bg-sage-400/10 flex items-center justify-center">
-                      <Mountain className="w-5 h-5 text-sage-500" />
-                    </div>
-                    <div>
-                      <p className="text-xl font-bold text-sage-900">600</p>
-                      <p className="text-sage-500 text-xs">meter dpl</p>
-                    </div>
-                  </div>
-                </div>
+
               </div>
             </div>
 
@@ -317,7 +307,7 @@ export default function HomePage() {
                       Penduduk
                     </span>
                   </div>
-                  <StatNumber value="4290" label="jiwa" />
+                  <StatNumber value="4409" label="jiwa" />
                 </div>
                 <div className="bg-white rounded-lg p-3.5 border border-sage-100/60">
                   <div className="flex items-center gap-2 mb-1.5">
@@ -328,20 +318,7 @@ export default function HomePage() {
                   </div>
                   <StatNumber value="13" label="lingkungan" />
                 </div>
-                <div className="bg-white rounded-lg p-3.5 border border-sage-100/60">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <Plane className="w-4 h-4 text-sage-400" />
-                    <span className="text-sage-500 text-xs font-medium">
-                      Dari Bandara
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-sage-900">~90</p>
-                    <p className="text-sage-500 text-xs mt-1">
-                      menit berkendara
-                    </p>
-                  </div>
-                </div>
+
                 <div className="bg-white rounded-lg p-3.5 border border-sage-100/60">
                   <div className="flex items-center gap-2 mb-1.5">
                     <Trophy className="w-4 h-4 text-sage-400" />
