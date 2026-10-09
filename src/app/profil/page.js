@@ -106,7 +106,7 @@ export default function ProfilPage() {
                   Nama <strong>"Kakaskasen"</strong> berasal dari bahasa Tombulu yang berarti kawasan yang subur dan makmur. Seiring dengan perkembangan penduduk dan kebutuhan akan peningkatan pelayanan publik, wilayah Kakaskasen yang awalnya merupakan satu kesatuan akhirnya mengalami pemekaran.
                 </p>
                 <p className="text-sage-700 leading-relaxed text-sm">
-                  Pada tahun 1990-an, kawasan ini resmi dimekarkan menjadi beberapa kelurahan yang berdiri sendiri, di antaranya adalah Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga. Pemekaran ini bertujuan untuk mengoptimalkan efektivitas pemerintahan dan mempercepat pembangunan di Kelurahan Kakaskasen Dua.
+                  Pada tanggal 14 Februari 1978, kawasan ini resmi dimekarkan menjadi beberapa kelurahan yang berdiri sendiri, di antaranya adalah Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga. Pemekaran ini bertujuan untuk mengoptimalkan efektivitas pemerintahan dan mempercepat pembangunan di Kelurahan Kakaskasen Dua.
                 </p>
               </div>
 
@@ -114,12 +114,12 @@ export default function ProfilPage() {
               <div className="space-y-0">
                 {[
                   {
-                    tahun: 'Pra-1990',
+                    tahun: 'Pra-1978',
                     judul: 'Kesatuan Kakaskasen',
                     desc: 'Wilayah ini masih tergabung dalam satu kesatuan desa induk Kakaskasen yang dikenal dengan kesuburan tanahnya.',
                   },
                   {
-                    tahun: '1990-an',
+                    tahun: '14 Februari 1978',
                     judul: 'Pemekaran Wilayah',
                     desc: 'Desa induk Kakaskasen secara resmi dimekarkan menjadi tiga kelurahan terpisah: Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga demi meningkatkan pelayanan kepada masyarakat.',
                   },
