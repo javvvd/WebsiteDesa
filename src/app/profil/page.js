@@ -88,10 +88,10 @@ export default function ProfilPage() {
           <div className="fade-up">
             <div className="text-center mb-10">
               <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
-                Asal Usul
+                Sejarah Singkat
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-sage-900 mt-2 mb-3">
-                Sejarah Kelurahan
+                Sejarah Singkat
               </h2>
               <div className="section-divider mb-4" />
               <p className="text-sage-600 text-sm max-w-2xl mx-auto">
@@ -106,7 +106,7 @@ export default function ProfilPage() {
                   Nama <strong>"Kakaskasen"</strong> berasal dari bahasa Tombulu yang berarti kawasan yang subur dan makmur. Seiring dengan perkembangan penduduk dan kebutuhan akan peningkatan pelayanan publik, wilayah Kakaskasen yang awalnya merupakan satu kesatuan akhirnya mengalami pemekaran.
                 </p>
                 <p className="text-sage-700 leading-relaxed text-sm">
-                  Pada tanggal 14 Februari 1978, kawasan ini resmi dimekarkan menjadi beberapa kelurahan yang berdiri sendiri, di antaranya adalah Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga. Pemekaran ini bertujuan untuk mengoptimalkan efektivitas pemerintahan dan mempercepat pembangunan di Kelurahan Kakaskasen Dua.
+                  Pada tanggal 14 Februari 1978, kawasan ini resmi dimekarkan menjadi empat kelurahan yang berdiri sendiri, yaitu Kakaskasen, Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga. Pemekaran ini bertujuan untuk mengoptimalkan efektivitas pemerintahan dan mempercepat pembangunan di Kelurahan Kakaskasen Dua.
                 </p>
               </div>
 
@@ -121,7 +121,7 @@ export default function ProfilPage() {
                   {
                     tahun: '14 Februari 1978',
                     judul: 'Pemekaran Wilayah',
-                    desc: 'Desa induk Kakaskasen secara resmi dimekarkan menjadi tiga kelurahan terpisah: Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga demi meningkatkan pelayanan kepada masyarakat.',
+                    desc: 'Desa induk Kakaskasen secara resmi dimekarkan menjadi empat kelurahan terpisah: Kakaskasen, Kakaskasen Satu, Kakaskasen Dua, dan Kakaskasen Tiga demi meningkatkan pelayanan kepada masyarakat.',
                   },
                   {
                     tahun: '2023',
@@ -214,57 +214,6 @@ export default function ProfilPage() {
         </div>
       </section>
 
-      {/* Visi Misi */}
-      <section className="py-16 md:py-20 bg-sage-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 fade-up">
-            <span className="text-sage-400 font-semibold text-xs uppercase tracking-widest">
-              Arah Pembangunan
-            </span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-sage-900 mt-2 mb-3">
-              Visi & Misi
-            </h2>
-            <div className="section-divider mb-4" />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl p-6 border border-sage-100/50 fade-left">
-              <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-900 mb-3">
-                Visi
-              </h3>
-              <p className="text-sage-600 text-sm leading-relaxed">
-                Mewujudkan Kelurahan Kakaskasen Dua yang mandiri, berdaya saing,
-                dan sejahtera melalui pemanfaatan potensi alam, pariwisata, dan
-                budaya lokal berlandaskan semangat gotong royong.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 border border-sage-100/50 fade-right">
-              <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-sage-900 mb-3">
-                Misi
-              </h3>
-              <ul className="space-y-2">
-                {[
-                  'Meningkatkan pelayanan publik yang transparan dan akuntabel.',
-                  'Mengembangkan potensi wisata alam dan budaya berbasis masyarakat.',
-                  'Mendorong pertumbuhan UMKM dan ekonomi kreatif lokal.',
-                  'Melestarikan kearifan lokal dan budaya Minahasa.',
-                  'Membangun infrastruktur yang mendukung kesejahteraan warga.',
-                ].map((misi, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-sage-600 text-sm"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-sage-400/15 flex items-center justify-center text-sage-500 text-xs font-bold shrink-0 mt-0.5">
-                      {i + 1}
-                    </span>
-                    {misi}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Jam Operasional */}
       <section className="py-16 md:py-20 bg-white">
