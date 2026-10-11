@@ -169,7 +169,7 @@ export default function ProfilPage() {
             <div className="section-divider mb-4" />
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+          <div className="grid sm:grid-cols-3 gap-5 max-w-4xl mx-auto mb-12">
             {[
               { icon: Users, label: 'Penduduk', value: '4.409', sub: 'jiwa' },
               { icon: MapPin, label: 'Lingkungan', value: '13', sub: 'lingkungan' },
